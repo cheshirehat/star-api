@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 class Http {
   protected readonly http: AxiosInstance;
@@ -12,27 +12,21 @@ class Http {
     });
   }
 
-  async fetchStars(): Promise<void> {
-    this.http
-      .get("", {
-        params: {
-          cmd: "display",
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  async fetchStars(): Promise<AxiosResponse> {
+    return await this.http.get("", {
+      params: {
+        cmd: "display",
+      },
+    });
   }
 
-  async fetchStarByhHrNo(): Promise<void> {
-    this.http
-      .get("", {
-        params: {
-          cmd: "detail",
-          hrNo: 1,
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  async fetchStarByhHrNo(id: number): Promise<AxiosResponse> {
+    return await this.http.get("", {
+      params: {
+        cmd: "detail",
+        hrNo: id,
+      },
+    });
   }
 }
 
