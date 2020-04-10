@@ -1,14 +1,17 @@
 import { RequestHandler } from "express";
 import http from "../api/http";
+import { convertStarXmlToJson, convertStarsXmlToJson } from "../lib/converter";
 
 export const getStarsHandler: RequestHandler = async (req, res) => {
-  await http.fetchStars();
+  const response = await http.fetchStars();
+  const stars = convertStarsXmlToJson(response.data);
 
-  res.json({ status: 200, message: "200 OK" });
+  res.json(stars);
 };
 
 export const getStarHandler: RequestHandler = async (req, res) => {
-  await http.fetchStarByhHrNo();
+  const response = await http.fetchStarByhHrNo(Number(req.params.id));
+  const star = convertStarXmlToJson(response.data);
 
-  res.json({ status: 200, message: "200 OK" });
+  res.json(star);
 };
